@@ -18,6 +18,5 @@ typedef struct
 }Player;
 Player * InitPlayer(int x, int y, Image *tex);
 void pltick(Player *pplayer);
-void pldestroy(Player *pplayer);
 
 #endif

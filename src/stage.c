@@ -30,7 +30,6 @@ void addBullet(bullet *pb) {
 }
 
 void InitStage() {
-    initLogger("log");
     logStr("Initializing stage\n", INFO);
     ebp = (bullet**) malloc(BULLET_BUFFER*sizeof(bullet*));
     if(ebp == NULL){

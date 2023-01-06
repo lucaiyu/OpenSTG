@@ -26,17 +26,11 @@ Player *InitPlayer(int x, int y, Image *tex) {
     return pplayer;
 }
 
-void render(Player *pplayer) {
+static void render(Player *pplayer) {
     DrawTextureRec(pplayer->tex, (Rectangle) {pplayer->u, pplayer->v, 32, 48}, (Vector2) {pplayer->x, pplayer->y},
                    WHITE);
 }
-
-void updateTex(Player *pplayer, Image *tex) {
-    UnloadTexture(pplayer->tex);
-    pplayer->tex = LoadTextureFromImage(*tex);
-}
-
-void anm(Player *pplayer) {
+static void anm(Player *pplayer) {
     if (pplayer->movement == 0) {
         pplayer->tmp++;
         if (pplayer->tmp == 10) {
@@ -93,18 +87,16 @@ void anm(Player *pplayer) {
     }
 }
 
-void shoot(Player *pplayer) {
+static void shoot(Player *pplayer) {
     if (pplayer->butimer == 5) {
-        //addBullet(InitBullet(pplayer->x+11, pplayer->y-52, 0, -1, 0, -1, 0, 0, &PL00, 194, 145, 10, 63, -90));
-        addBullet(InitBullet(pplayer->x+7, pplayer->y-17, 0, -1, 0, -1, 0, 0, &BULLET[0], 15, 15, 16, 17, 0));
-        //addBullet(InitBullet(pplayer->x + 10, pplayer->y - 52, 0, -1, 0, -1, 0, 0, &PL00, 215, 145, 12, 55));
+        addBullet(InitBullet(pplayer->x+11, pplayer->y, 0, -1, 0, -1, 0, 0, &PL00, 194, 145, 10, 63, 0));
         pplayer->butimer = 0;
     } else {
         pplayer->butimer++;
     }
 }
 
-void ctrl(Player *pplayer) {
+static void ctrl(Player *pplayer) {
     if (IsKeyDown(KEY_LEFT_SHIFT)) {
         pplayer->speed = 1;
     } else {
@@ -162,9 +154,4 @@ void pltick(Player *pplayer) {
     render(pplayer);
     ctrl(pplayer);
     anm(pplayer);
-}
-
-void pldestroy(Player *pplayer) {
-    free(pplayer);
-    pplayer = NULL;
 }
