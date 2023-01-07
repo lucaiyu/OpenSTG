@@ -30,6 +30,7 @@ void InitStage() {
     ldtex();
     pplayer = InitPlayer(320, 240, &PL00);
     head = NULL;
+    PlayMusicStream(bgms[5]);
 }
 
 static void loopbu() {
@@ -56,6 +57,7 @@ void delete(bullet *pb){
 
 void StartStage() {
     while (!WindowShouldClose()) {
+        UpdateMusicStream(bgms[5]);
         timer++;
         BeginDrawing();
         loopbu();
