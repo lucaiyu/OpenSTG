@@ -7,5 +7,9 @@
 void InitStage();
 void StartStage();
 void addBullet(bullet *pb);
-void clearstage();
+
+typedef struct node{
+    bullet *current;
+    struct node *next;
+}bulletNode;
 #endif

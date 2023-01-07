@@ -1,11 +1,11 @@
 # OpenSTG MAKEFILE
 
 
-all: main
-	-./main
+all: openstg
+	-./openstg
 
-main: build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/danmaku.o
-	gcc build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/danmaku.o -o main -g -lraylib -lm -lGL -lpthread -ldl -lrt -lX11
+openstg: build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/danmaku.o
+	gcc build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/danmaku.o -o openstg -g -lraylib -lm -lGL -lpthread -ldl -lrt -lX11
 
 build/main.o: src/main.c
 	gcc src/main.c -c -o build/main.o
@@ -33,4 +33,4 @@ build/danmaku.o: src/danmaku.c
 
 .PHONY:clean
 clean:
-	-rm -fr build/* main
+	-rm -fr build/* openstg
