@@ -8,7 +8,7 @@ typedef unsigned int DWORD;
 
 extern Image PL00;//global var def
 extern Image PL01;
-extern Image BULLET[4];
+extern Image BULLET[2];
 extern Image VOID;
 
 #include "danmaku.h"//header inc

@@ -27,8 +27,9 @@ Player *InitPlayer(int x, int y, Image *tex) {
 }
 
 static void render(Player *pplayer) {
-    DrawTextureRec(pplayer->tex, (Rectangle) {pplayer->u, pplayer->v, 32, 48}, (Vector2) {pplayer->x, pplayer->y},
-                   WHITE);
+        DrawTextureRec(pplayer->tex, (Rectangle) {pplayer->u, pplayer->v, 32, 48}, (Vector2) {pplayer->x, pplayer->y},
+                       WHITE);
+
 }
 static void anm(Player *pplayer) {
     if (pplayer->movement == 0) {
@@ -37,7 +38,7 @@ static void anm(Player *pplayer) {
             pplayer->tmp = 0;
             pplayer->frame++;
         }
-        if (pplayer->frame > 7) {
+        if (pplayer->frame > 3) {
             pplayer->frame = 0;
         }
         pplayer->u = 32 * pplayer->frame;
@@ -57,8 +58,8 @@ static void anm(Player *pplayer) {
                 pplayer->tmp = 0;
                 pplayer->frame++;
             }
-            if (pplayer->frame > 7) {
-                pplayer->frame = 4;
+            if (pplayer->frame > 6) {
+                pplayer->frame = 6;
             }
             pplayer->u = 32 * pplayer->frame;
             pplayer->v = 48;
@@ -78,8 +79,8 @@ static void anm(Player *pplayer) {
                 pplayer->tmp = 0;
                 pplayer->frame++;
             }
-            if (pplayer->frame > 7) {
-                pplayer->frame = 4;
+            if (pplayer->frame > 6) {
+                pplayer->frame = 6;
             }
             pplayer->u = 32 * pplayer->frame;
             pplayer->v = 96;
@@ -88,8 +89,10 @@ static void anm(Player *pplayer) {
 }
 
 static void shoot(Player *pplayer) {
-    if (pplayer->butimer == 5) {
-        addBullet(InitBullet(pplayer->x+11, pplayer->y, 0, -1, 0, -1, &PL00, (Rectangle){194, 145, 10, 63}, 0));
+    if (pplayer->butimer == 10) {
+        //addBullet(InitBullet(pplayer->x+11, pplayer->y, 0, -1, 0, -1, &PL00, (Rectangle){197, 3, 6, 43}, 0));
+        //addBullet(InitBullet(pplayer->x+11, pplayer->y, 0, -1, 0, -1, &PL00, (Rectangle){145, 1, 14, 14}, 0));
+        addBullet(InitBullet(pplayer->x+11, pplayer->y, 0, -1, 0, -1, &PL00, (Rectangle){130, 2, 12, 12}, 45));
         pplayer->butimer = 0;
     } else {
         pplayer->butimer++;

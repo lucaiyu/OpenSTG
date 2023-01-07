@@ -40,7 +40,7 @@ void InitStage() {
     timer = 0;
     esp = 0;
     ldtex();
-    pplayer = InitPlayer(320, 240, &PL00);
+    pplayer = InitPlayer(320, 240, &PL01);
 }
 
 void loopbu() {
