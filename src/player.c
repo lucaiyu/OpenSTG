@@ -89,7 +89,7 @@ static void anm(Player *pplayer) {
 
 static void shoot(Player *pplayer) {
     if (pplayer->butimer == 5) {
-        addBullet(InitBullet(pplayer->x+11, pplayer->y, 0, -1, 0, -1, 0, 0, &PL00, 194, 145, 10, 63, 0));
+        addBullet(InitBullet(pplayer->x+11, pplayer->y, 0, -1, 0, -1, &PL00, (Rectangle){194, 145, 10, 63}, 0));
         pplayer->butimer = 0;
     } else {
         pplayer->butimer++;

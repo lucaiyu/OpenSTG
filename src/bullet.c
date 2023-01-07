@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-bullet * InitBullet(short x, short y, short dx, short dy, short d2x, short d2y, short d3x, short d3y, Image *tex, short u, short v, short w, short h, short rotate){
+bullet * InitBullet(short x, short y, short dx, short dy, short d2x, short d2y, Image *tex, Rectangle src, short rotate){
     bullet *pb = (bullet*)malloc(sizeof(bullet));
     if(pb == NULL){
         logStr("could not alloc memory!", PANIC);
@@ -15,17 +15,13 @@ bullet * InitBullet(short x, short y, short dx, short dy, short d2x, short d2y, 
     pb->dy = dy;
     pb->d2x = d2x;
     pb->d2y = d2y;
-    pb->d3x = d3x;
-    pb->d3y = d3y;
     pb->rotate = rotate;
     pb->trash = false;
-    pb->src = (Rectangle){u, v, w, h};
+    pb->src = src;
     pb->tex = LoadTextureFromImage(*tex);
     return pb;
 }
 static void delta(bullet *pb){
-    pb->d2x+=pb->d3x;
-    pb->d2y+=pb->d3y;
     pb->dx+=pb->d2x;
     pb->dy+=pb->d2y;
     pb->x+=pb->dx;

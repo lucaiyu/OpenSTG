@@ -1,6 +1,6 @@
 #ifndef OPENSTG_BULLET_H
 #define OPENSTG_BULLET_H
-#include <raylib.h>
+#include "openstg.h"
 typedef struct{
     short x;
     short y;
@@ -8,8 +8,6 @@ typedef struct{
     short dy;
     short d2x;
     short d2y;
-    short d3x;
-    short d3y;
     short rotate;
     bool trash;
     Rectangle src;
@@ -21,6 +19,6 @@ enum BULLETTYPE{
 enum SPECBULLETTYPE{
     XXLSTAR=14, XXLRING, BUTTERFLY, KNIFE, XXLRICE, SUN, XXXLRING
 };
-bullet * InitBullet(short x, short y, short dx, short dy, short d2x, short d2y, short d3x, short d3y, Image *tex, short u, short v, short w, short h, short rotate);
+bullet * InitBullet(short x, short y, short dx, short dy, short d2x, short d3y, Image *tex, Rectangle src, short rotate);
 void butick(bullet *pb);
 #endif
