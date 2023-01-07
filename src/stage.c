@@ -13,7 +13,6 @@ void addBullet(bullet *pb) {
         head = (bulletNode*) malloc(sizeof(bulletNode));
         head->current = pb;
         head->next = NULL;
-        return;
     } else{
         bulletNode *cur = head;
         while (cur->next!=NULL){
@@ -33,10 +32,24 @@ void InitStage() {
     head = NULL;
 }
 
-void loopbu() {
+static void loopbu() {
     bulletNode *cur = head;
-    while (cur!=NULL&&cur->next!=NULL&&cur->current!=NULL){
+    while (cur!=NULL){
         butick(cur->current);
+        cur=cur->next;
+    }
+}
+
+void delete(bullet *pb){
+    if(pb == NULL){
+        return;
+    }
+    bulletNode *cur = head;
+    while (cur!=NULL&&cur->next->next!=NULL){
+        if(cur->next->current == pb){
+            cur->next = cur->next->next;
+            break;
+        }
         cur=cur->next;
     }
 }
