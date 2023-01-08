@@ -3,6 +3,7 @@
 Image PL00;
 Image PL01;
 Image BULLET[2];
+Image ui[2];
 Music bgms[17];
 
 
@@ -13,6 +14,8 @@ void ldtex(){
     PL01 = LoadImage("assets/TEX/pl01.png");
     BULLET[0] = LoadImage("assets/TEX/etama3.png");
     BULLET[1] = LoadImage("assets/TEX/etama4.png");
+    ui[0] = LoadImage("assets/TEX/front.png");
+    ui[1] = LoadImage("assets/TEX/ascii.png");
     bgms[0] = LoadMusicStream("assets/BGM/th06_01.wav");
     bgms[1] = LoadMusicStream("assets/BGM/th06_02.wav");
     bgms[2] = LoadMusicStream("assets/BGM/th06_03.wav");

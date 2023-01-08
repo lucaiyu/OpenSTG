@@ -4,8 +4,8 @@
 all: openstg
 	-./openstg
 
-openstg: build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/danmaku.o
-	gcc build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/danmaku.o -o openstg -g -lraylib -lm -lGL -lpthread -ldl -lrt -lX11
+openstg: build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/ui.o
+	gcc build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/ui.o -o openstg -g -lraylib -lm -lGL -lpthread -ldl -lrt -lX11
 
 build/main.o: src/main.c
 	gcc src/main.c -c -o build/main.o
@@ -28,8 +28,8 @@ build/logger.o: src/logger.c
 build/enemy.o: src/enemy.c
 	gcc src/enemy.c -c -o build/enemy.o
 
-build/danmaku.o: src/danmaku.c
-	gcc src/danmaku.c -c -o build/danmaku.o
+build/ui.o: src/ui.c
+	gcc src/ui.c -c -o build/ui.o
 
 .PHONY:clean
 clean:

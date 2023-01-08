@@ -147,6 +147,13 @@ static void shoot(Player *pplayer) {
         pplayer->butimer++;
     }
 }
+static void spellcard(Player *pplayer){
+    if(scoreIn->bomb>0){
+        scoreIn->bomb--;
+        // TODO
+        //launch spellcard
+    }
+}
 
 static void ctrl(Player *pplayer) {
     if (IsKeyDown(KEY_LEFT_SHIFT)) {
@@ -155,6 +162,9 @@ static void ctrl(Player *pplayer) {
     } else {
         pplayer->speed = 4;
         pplayer->slowmode = false;
+    }
+    if(IsKeyPressed(KEY_X)){
+        spellcard(pplayer);
     }
     if (IsKeyPressed(KEY_LEFT)) {
         pplayer->temp = true;

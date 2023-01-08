@@ -7,6 +7,16 @@
 Player *pplayer;
 bulletNode *head;
 unsigned long timer;
+score *scoreIn;
+
+void initScore(score *scoreIn){
+    scoreIn->score = 0;
+    scoreIn->power = 0;
+    scoreIn->bomb = 3;
+    scoreIn->graze = 0;
+    scoreIn->hiscore = 0;
+    scoreIn->live = 2;
+}
 
 void addBullet(bullet *pb) {
     if(head == NULL){
@@ -30,6 +40,8 @@ void InitStage() {
     ldtex();
     pplayer = InitPlayer(320, 240, &PL00);
     head = NULL;
+    scoreIn = (score*) malloc(sizeof(scoreIn));
+    initScore(scoreIn);
     PlayMusicStream(bgms[5]);
 }
 
@@ -57,12 +69,13 @@ void delete(bullet *pb){
 
 void StartStage() {
     while (!WindowShouldClose()) {
-        //UpdateMusicStream(bgms[5]);
+        UpdateMusicStream(bgms[5]);
         timer++;
         BeginDrawing();
         loopbu();
         pltick(pplayer);
-        ClearBackground(BLACK);
+        renderUI();
+        ClearBackground((Color){25, 25, 36});
         EndDrawing();
     }
 }
