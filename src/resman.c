@@ -9,8 +9,8 @@ Music bgms[17];
 //load texture into RAM
 void ldtex(){
 	logStr("Loading resources\n", INFO);
-    PL00 = LoadImage("assets/TEX/player00.png");
-    PL01 = LoadImage("assets/TEX/player01.png");
+    PL00 = LoadImage("assets/TEX/pl00.png");
+    PL01 = LoadImage("assets/TEX/pl01.png");
     BULLET[0] = LoadImage("assets/TEX/etama3.png");
     BULLET[1] = LoadImage("assets/TEX/etama4.png");
     bgms[0] = LoadMusicStream("assets/BGM/th06_01.wav");

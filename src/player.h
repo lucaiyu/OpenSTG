@@ -11,6 +11,7 @@ typedef struct
     short frame;
     short butimer;
     short tmp;
+    unsigned char power;
     _Bool temp;
     short speed;
     short movement;

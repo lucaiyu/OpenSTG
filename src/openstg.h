@@ -10,6 +10,7 @@ extern Image PL00;//global var def
 extern Image PL01;
 extern Image BULLET[2];
 extern Music bgms[17];
+extern unsigned long timer;//GLOBAL TIMER(TPS)
 
 #include "danmaku.h"//header inc
 #include "bullet.h"

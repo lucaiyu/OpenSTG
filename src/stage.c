@@ -57,7 +57,7 @@ void delete(bullet *pb){
 
 void StartStage() {
     while (!WindowShouldClose()) {
-        UpdateMusicStream(bgms[5]);
+        //UpdateMusicStream(bgms[5]);
         timer++;
         BeginDrawing();
         loopbu();
