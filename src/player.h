@@ -13,6 +13,7 @@ typedef struct
     short tmp;
     unsigned char power;
     _Bool temp;
+    _Bool slowmode;
     short speed;
     short movement;
     Texture2D tex;

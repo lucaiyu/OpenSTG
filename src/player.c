@@ -22,6 +22,7 @@ Player *InitPlayer(int x, int y, Image *tex) {
     pplayer->speed = 2;
     pplayer->butimer = 0;
     pplayer->temp = false;//is mode transfer? usage:init anm when mode switch
+    pplayer->slowmode = false;
     pplayer->movement = 0;//anm mode 0:NORMAL 1:LEFT 2:RIGHT
     pplayer->tex = LoadTextureFromImage(*tex);
     return pplayer;
@@ -35,16 +36,31 @@ static void render(Player *pplayer) {
             return;
         }
         if(pplayer->power == 2){
-            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+16+45, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
-            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x-16-15, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
-            return;
+            if(pplayer->slowmode == false){
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+16+45, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x-16-15, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                return;
+            } else{
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+16+25, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x-16+5, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                return;
+            }
+
         }
         if(pplayer->power == 3){
-            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+15+20, pplayer->y-20, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
-            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+15-20, pplayer->y-20, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
-            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+16+45, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
-            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x-16-15, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
-            return;
+            if(pplayer->slowmode == false){
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+15+20, pplayer->y-20, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+15-20, pplayer->y-20, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+16+45, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x-16-15, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                return;
+            } else{
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+15+10, pplayer->y-10, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+15-10, pplayer->y-10, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+16+25, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x-16+5, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+                return;
+            }
         }
 
 }
@@ -109,13 +125,21 @@ static void shoot(Player *pplayer) {
     if (pplayer->butimer == 5) {
         addBullet(InitBullet(pplayer->x+16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){194, 145, 11, 62}, 0));
         addBullet(InitBullet(pplayer->x-16+15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){194, 145, 11, 62}, 0));
-        if(pplayer->power >= 1){
-            addBullet(InitBullet(pplayer->x+16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
-            addBullet(InitBullet(pplayer->x-16+15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+        if(pplayer->power > 1){
+            if(pplayer->slowmode != true){
+                addBullet(InitBullet(pplayer->x+16+25, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+                addBullet(InitBullet(pplayer->x-16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+            }
         }
         if(pplayer->power >=3){
-            addBullet(InitBullet(pplayer->x+16+45, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
-            addBullet(InitBullet(pplayer->x-16-15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+            if(pplayer->slowmode == false){
+                addBullet(InitBullet(pplayer->x+16+45, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+                addBullet(InitBullet(pplayer->x-16-15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+            } else{
+                addBullet(InitBullet(pplayer->x+16+25, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+                addBullet(InitBullet(pplayer->x-16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+            }
+
         }
 
         pplayer->butimer = 0;
@@ -126,9 +150,11 @@ static void shoot(Player *pplayer) {
 
 static void ctrl(Player *pplayer) {
     if (IsKeyDown(KEY_LEFT_SHIFT)) {
-        pplayer->speed = 1;
+        pplayer->speed = 2;
+        pplayer->slowmode = true;
     } else {
         pplayer->speed = 4;
+        pplayer->slowmode = false;
     }
     if (IsKeyPressed(KEY_LEFT)) {
         pplayer->temp = true;
