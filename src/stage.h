@@ -15,7 +15,8 @@ typedef struct{
     unsigned char power;
     unsigned char live;
     unsigned char bomb;
-    unsigned char graze;
+    unsigned short point;
+    unsigned short graze;
 }score;
 
 typedef struct node{

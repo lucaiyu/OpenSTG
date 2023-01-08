@@ -70,6 +70,9 @@ void delete(bullet *pb){
 void StartStage() {
     while (!WindowShouldClose()) {
         UpdateMusicStream(bgms[5]);
+        scoreIn->graze+=10;
+        scoreIn->point+=10;
+        scoreIn->power++;
         timer++;
         BeginDrawing();
         loopbu();
