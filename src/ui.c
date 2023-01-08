@@ -1,4 +1,5 @@
 #include "openstg.h"
+#include "stdio.h"
 
 void rendernum(int num, Vector2 dst){
     if(num < 0 || num > 9){
@@ -23,5 +24,20 @@ void renderUI(){
     for(int i = 0; i < scoreIn->bomb; i++){
         DrawTextureRec(uiTex, (Rectangle){48, 241, 15, 15}, (Vector2){497+17*i, 147}, WHITE);
     }
-    rendernum(1, (Vector2){0, 0});
+    if(scoreIn->power<128){
+        if(scoreIn->power>=100){
+            rendernum((scoreIn->power-scoreIn->power%100)/100, (Vector2){497, 187});
+            rendernum(((scoreIn->power%100-scoreIn->power%100%10)/10), (Vector2){497+15, 187});
+            rendernum((scoreIn->power%100)%10, (Vector2){497+15+15, 187});
+        }
+        if(scoreIn->power<100&&scoreIn->power>9){
+            rendernum((scoreIn->power-scoreIn->power%10)/10, (Vector2){497, 187});
+            rendernum(scoreIn->power%10, (Vector2){497+15, 187});
+        } else{
+            rendernum(scoreIn->power, (Vector2){497, 187});
+        }
+    } else{
+        DrawTextureRec(uiTex, (Rectangle){65, 246, 42, 12}, (Vector2){497, 187}, WHITE);
+        scoreIn->power = 128;
+    }
 }
