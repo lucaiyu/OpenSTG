@@ -1,4 +1,6 @@
+#include <math.h>
 #include "openstg.h"
+#include <stdio.h>
 
 void rendernum(int num, Vector2 dst){
     if(num < 0 || num > 9){
@@ -27,18 +29,18 @@ static void renderKey(){
 
 static void renderPower(){
     Texture2D uiTex = LoadTextureFromImage(ui[0]);
-
+    BYTE bits=4;
     if(scoreIn->power<128){
-        if(scoreIn->power>=100){
-            rendernum(scoreIn->power/100%10, (Vector2){497, 187});
-            rendernum(scoreIn->power/10%10, (Vector2){497+15, 187});
-            rendernum(scoreIn->power%10, (Vector2){497+15+15, 187});
+        while (true){
+            int tmp = (int)(scoreIn->power/ pow(10, bits))%10;
+            if(tmp == 0){
+                break;
+            }
+            bits++;
         }
-        if(scoreIn->power<100&&scoreIn->power>9){
-            rendernum(scoreIn->power/10%10, (Vector2){497, 187});
-            rendernum(scoreIn->power%10, (Vector2){497+15, 187});
-        } else{
-            rendernum(scoreIn->power, (Vector2){497, 187});
+        for (int i = 0; i < bits; i++){
+            int tmp = (int)(scoreIn->power/ pow(10, i))%10;
+            rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 187});
         }
     } else{
         DrawTextureRec(uiTex, (Rectangle){65, 244, 41, 12}, (Vector2){499, 189}, WHITE);
@@ -47,61 +49,43 @@ static void renderPower(){
 }
 
 static void renderGraze(){
-    if(scoreIn->graze>999){
-        if(scoreIn->graze>9999){
-            scoreIn->graze = 9999;
+    if(scoreIn->graze>9999){
+        scoreIn->graze = 9999;
+    }
+    BYTE bits =4;
+    while (true){
+        int tmp = (int)(scoreIn->graze/ pow(10, bits))%10;
+        if(tmp == 0){
+            break;
         }
-        rendernum(scoreIn->graze/1000%10, (Vector2){497, 206});
-        rendernum(scoreIn->graze/100%10, (Vector2){497+15, 206});
-        rendernum(scoreIn->graze/10%10, (Vector2){497+15+15, 206});
-        rendernum(scoreIn->graze%10, (Vector2){497+15+15+15, 206});
-        return;
+        bits++;
     }
-    if(scoreIn->graze>99&&scoreIn->graze<1000){
-        rendernum(scoreIn->graze/100%10, (Vector2){497, 206});
-        rendernum(scoreIn->graze/10%10, (Vector2){497+15, 206});
-        rendernum(scoreIn->graze%10, (Vector2){497+15+15, 206});
-        return;
-    }
-    if(scoreIn->graze>9&&scoreIn->graze<100){
-        rendernum(scoreIn->graze/10%10, (Vector2){497, 206});
-        rendernum(scoreIn->graze%10, (Vector2){497+15, 206});
-        return;
-    } else{
-        rendernum(scoreIn->graze%10, (Vector2){497, 206});
-        return;
+    for (int i = 0; i < bits; i++){
+        int tmp = (int)(scoreIn->graze/ pow(10, i))%10;
+        rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 206});
     }
 }
 
 static void renderPoint(){
-    if(scoreIn->point>999){
-        if(scoreIn->point>9999){
-            scoreIn->point = 9999;
+    if(scoreIn->point>9999){
+        scoreIn->point = 9999;
+    }
+    BYTE bits = 4;
+    while (true){
+        int tmp = (int)(scoreIn->point/ pow(10, bits))%10;
+        if(tmp == 0){
+            break;
         }
-        rendernum(scoreIn->point/1000%10, (Vector2){497, 227});
-        rendernum(scoreIn->point/100%10, (Vector2){497+15, 227});
-        rendernum(scoreIn->point/10%10, (Vector2){497+15+15, 227});
-        rendernum(scoreIn->point%10, (Vector2){497+15+15+15, 227});
-        return;
+        bits++;
     }
-    if(scoreIn->graze>99&&scoreIn->point<1000){
-        rendernum(scoreIn->point/100%10, (Vector2){497, 227});
-        rendernum(scoreIn->point/10%10, (Vector2){497+15, 227});
-        rendernum(scoreIn->point%10, (Vector2){497+15+15, 227});
-        return;
-    }
-    if(scoreIn->graze>9&&scoreIn->point<100){
-        rendernum(scoreIn->point/10%10, (Vector2){497, 227});
-        rendernum(scoreIn->point%10, (Vector2){497+15, 227});
-        return;
-    } else{
-        rendernum(scoreIn->point%10, (Vector2){497, 227});
-        return;
+    for (int i = 0; i < bits; i++){
+        int tmp = (int)(scoreIn->point/ pow(10, i))%10;
+        rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 227});
     }
 }
 void renderUI(){
     renderKey();
     renderGraze();
-    renderPoint();
     renderPower();
+    renderPoint();
 }

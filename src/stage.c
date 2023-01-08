@@ -72,7 +72,9 @@ void StartStage() {
         UpdateMusicStream(bgms[5]);
         scoreIn->graze+=10;
         scoreIn->point+=10;
-        scoreIn->power++;
+        if(timer%5==0){
+            scoreIn->power++;
+        }
         timer++;
         BeginDrawing();
         loopbu();
