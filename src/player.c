@@ -16,7 +16,7 @@ Player *InitPlayer(int x, int y, Image *tex) {
     pplayer->y = y;
     pplayer->u = 0;
     pplayer->v = 0;
-    pplayer->power = 1;
+    pplayer->power = 3;
     pplayer->frame = 0;//anm frame
     pplayer->tmp = 0;//frame slow factor
     pplayer->speed = 2;
@@ -32,6 +32,19 @@ static void render(Player *pplayer) {
                        WHITE);
         if(pplayer->power == 1){
             DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+15, pplayer->y-20, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+            return;
+        }
+        if(pplayer->power == 2){
+            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+16+45, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x-16-15, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+            return;
+        }
+        if(pplayer->power == 3){
+            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+15+20, pplayer->y-20, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+15-20, pplayer->y-20, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x+16+45, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+            DrawTexturePro(pplayer->tex, (Rectangle){81, 145, 15, 15}, (Rectangle){pplayer->x-16-15, pplayer->y+24, 15, 15}, (Vector2){7, 7}, timer%100*3.6, WHITE);
+            return;
         }
 
 }
@@ -96,6 +109,15 @@ static void shoot(Player *pplayer) {
     if (pplayer->butimer == 5) {
         addBullet(InitBullet(pplayer->x+16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){194, 145, 11, 62}, 0));
         addBullet(InitBullet(pplayer->x-16+15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){194, 145, 11, 62}, 0));
+        if(pplayer->power >= 1){
+            addBullet(InitBullet(pplayer->x+16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+            addBullet(InitBullet(pplayer->x-16+15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+        }
+        if(pplayer->power >=3){
+            addBullet(InitBullet(pplayer->x+16+45, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+            addBullet(InitBullet(pplayer->x-16-15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+        }
+
         pplayer->butimer = 0;
     } else {
         pplayer->butimer++;
