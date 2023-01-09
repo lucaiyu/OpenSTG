@@ -4,6 +4,7 @@ Image PL00;
 Image PL01;
 Image BULLET[2];
 Texture2D ui[2];
+Texture2D bak[1];
 Music bgms[17];
 
 
@@ -16,6 +17,7 @@ void ldtex(){
     BULLET[1] = LoadImage("assets/TEX/etama4.png");
     ui[0] = LoadTexture("assets/TEX/front.png");
     ui[1] = LoadTexture("assets/TEX/ascii.png");
+    bak[0] = LoadTexture("assets/TEX/stg1bg.png");
     bgms[0] = LoadMusicStream("assets/BGM/th06_01.wav");
     bgms[1] = LoadMusicStream("assets/BGM/th06_02.wav");
     bgms[2] = LoadMusicStream("assets/BGM/th06_03.wav");

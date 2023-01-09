@@ -80,8 +80,54 @@ static void renderPoint(){
         rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 227});
     }
 }
+static void rendercur(){
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 30; j++){
+            DrawTextureRec(ui[0], (Rectangle){96, 80, 160 ,16}, (Vector2){160*i, 16*j}, GRAY);
+        }
+    }
+}
+
+static void renderhiscore(){
+    if(scoreIn->hiscore>999999999){
+        scoreIn->hiscore = 999999999;
+    }
+    BYTE bits = 9;
+    while (true){
+        int tmp = (int)(scoreIn->hiscore/ pow(10, bits))%10;
+        if(tmp == 0){
+            break;
+        }
+        bits++;
+    }
+    for (int i = 0; i < bits; i++){
+        int tmp = (int)(scoreIn->hiscore/ pow(10, i))%10;
+        rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 61});
+    }
+}
+
+static void renderscore(){
+    if(scoreIn->score>999999999){
+        scoreIn->score = 999999999;
+    }
+    BYTE bits = 9;
+    while (true){
+        int tmp = (int)(scoreIn->score/ pow(10, bits))%10;
+        if(tmp == 0){
+            break;
+        }
+        bits++;
+    }
+    for (int i = 0; i < bits; i++){
+        int tmp = (int)(scoreIn->score/ pow(10, i))%10;
+        rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 85});
+    }
+}
 void renderUI(){
+    rendercur();
     renderKey();
+    renderhiscore();
+    renderscore();
     renderGraze();
     renderPower();
     renderPoint();

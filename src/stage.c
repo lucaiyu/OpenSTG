@@ -53,6 +53,14 @@ static void loopbu() {
     }
 }
 
+static void renderbak(){
+    for(int i = 0; i < 25; i++){
+        for(int j = 0; j < 29; j++){
+            DrawTextureRec(bak[0], (Rectangle){0, 0, 16, 16}, (Vector2){16+i*16, 8+j*16}, GRAY);
+        }
+    }
+}
+
 void delete(bullet *pb){
     if(pb == NULL){
         return;
@@ -71,14 +79,12 @@ void StartStage() {
     while (!WindowShouldClose()) {
         UpdateMusicStream(bgms[5]);
         timer++;
-        if(timer%5==0){
-            scoreIn->power++;
-        }
         BeginDrawing();
-        ClearBackground((Color){25, 25, 36});
+        ClearBackground(BLACK);
+        renderUI();
+        renderbak();
         loopbu();
         pltick(pplayer);
-        renderUI();
         EndDrawing();
     }
 }
