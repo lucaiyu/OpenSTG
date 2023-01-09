@@ -1,7 +1,5 @@
 #ifndef OPENSTG_STAGE_H
 #define OPENSTG_STAGE_H
-
-
 #include "openstg.h"
 
 void InitStage();

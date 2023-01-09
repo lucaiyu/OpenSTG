@@ -1,5 +1,5 @@
-#include <raylib.h>
 #include "openstg.h"
+
 Image PL00;
 Image PL01;
 Image BULLET[2];

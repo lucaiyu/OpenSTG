@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
+#include "openstg.h"
 void logStr(char *log, int level){//e.g. Mon Aug 13 08:23:14 2012 [PANIC] could not alloc memory!
     char *slevel;
     switch (level) {

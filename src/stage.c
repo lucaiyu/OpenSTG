@@ -1,8 +1,5 @@
 #include "openstg.h"
-#include <raylib.h>
 
-#include <stdio.h>
-#include <stdlib.h>
 
 Player *pplayer;
 bulletNode *head;

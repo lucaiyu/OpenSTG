@@ -1,6 +1,4 @@
-#include <math.h>
 #include "openstg.h"
-#include <stdio.h>
 
 void rendernum(int num, Vector2 dst){
     if(num < 0 || num > 9){

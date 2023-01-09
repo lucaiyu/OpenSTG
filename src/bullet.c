@@ -1,6 +1,4 @@
 #include "openstg.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 bullet * InitBullet(short x, short y, short dx, short dy, short d2x, short d2y, Image *tex, Rectangle src, short rotate){
     bullet *pb = (bullet*)malloc(sizeof(bullet));

@@ -1,6 +1,13 @@
 #ifndef OPENSTG_OPENSTG_H
 #define OPENSTG_OPENSTG_H
 #include <raylib.h>//master header
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
+
+
 #include "ui.h"//header inc
 #include "bullet.h"
 #include "player.h"

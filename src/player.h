@@ -1,6 +1,6 @@
 #ifndef OPENSTG_PLAYER_H
 #define OPENSTG_PLAYER_H
-#include <raylib.h>
+#include "openstg.h"
 
 typedef struct
 {
