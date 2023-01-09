@@ -30,7 +30,7 @@ static void render(bullet *pb){
                    pb->rotate, WHITE);
 }
 static void check(bullet *pb){
-    if(pb->x<0||pb->x>384||pb->y<0||pb->y>480){
+    if(pb->x<0||pb->x>433||pb->y<0||pb->y>480){
         pb->x = 1000;
         pb->y = 1000;
         pb->dx = 0;

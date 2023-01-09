@@ -16,13 +16,14 @@ Player *InitPlayer(int x, int y, Image *tex) {
     pplayer->y = y;
     pplayer->u = 0;
     pplayer->v = 0;
-    pplayer->power = 3;
+    pplayer->power = 0;
     pplayer->frame = 0;//anm frame
     pplayer->tmp = 0;//frame slow factor
-    pplayer->speed = 2;
+    pplayer->speed = 4;
     pplayer->butimer = 0;
     pplayer->temp = false;//is mode transfer? usage:init anm when mode switch
     pplayer->slowmode = false;
+    pplayer->touchframe = false;
     pplayer->movement = 0;//anm mode 0:NORMAL 1:LEFT 2:RIGHT
     pplayer->tex = LoadTextureFromImage(*tex);
     return pplayer;
@@ -125,19 +126,29 @@ static void shoot(Player *pplayer) {
     if (pplayer->butimer == 5) {
         addBullet(InitBullet(pplayer->x+16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){194, 145, 11, 62}, 0));
         addBullet(InitBullet(pplayer->x-16+15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){194, 145, 11, 62}, 0));
-        if(pplayer->power > 1){
-            if(pplayer->slowmode != true){
-                addBullet(InitBullet(pplayer->x+16+25, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
-                addBullet(InitBullet(pplayer->x-16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+        if(pplayer->power >=1){
+            addBullet(InitBullet(pplayer->x+16+15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+            addBullet(InitBullet(pplayer->x-16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+        }
+        if(pplayer->power >=2){
+            if(pplayer->slowmode == false){
+                addBullet(InitBullet(pplayer->x+16+35, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+                addBullet(InitBullet(pplayer->x-16-15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+            } else{
+                addBullet(InitBullet(pplayer->x+16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+                addBullet(InitBullet(pplayer->x-16+15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
             }
+
         }
         if(pplayer->power >=3){
             if(pplayer->slowmode == false){
-                addBullet(InitBullet(pplayer->x+16+45, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
-                addBullet(InitBullet(pplayer->x-16-15, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
-            } else{
                 addBullet(InitBullet(pplayer->x+16+25, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
-                addBullet(InitBullet(pplayer->x-16+5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+                addBullet(InitBullet(pplayer->x-16-5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+                addBullet(InitBullet(pplayer->x+16+45, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+                addBullet(InitBullet(pplayer->x-16-25, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+            } else{
+                addBullet(InitBullet(pplayer->x-16-5, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
+                addBullet(InitBullet(pplayer->x+16+25, pplayer->y+48, 0, -1, 0, -1, &PL00, (Rectangle){207, 145, 6, 54}, 0));
             }
 
         }
@@ -166,6 +177,10 @@ static void ctrl(Player *pplayer) {
     if(IsKeyPressed(KEY_X)){
         spellcard(pplayer);
     }
+    if(IsKeyUp(KEY_LEFT)&& IsKeyUp(KEY_RIGHT)){
+        pplayer->temp = true;
+        pplayer->movement = 0;
+    }
     if (IsKeyPressed(KEY_LEFT)) {
         pplayer->temp = true;
         pplayer->movement = 1;
@@ -174,47 +189,40 @@ static void ctrl(Player *pplayer) {
         pplayer->temp = true;
         pplayer->movement = 2;
     }
-    if (IsKeyUp(KEY_LEFT) && IsKeyUp(KEY_RIGHT)) {
-        pplayer->movement = 0;
-    }
     if (IsKeyDown(KEY_Z)) {
         shoot(pplayer);
     }
-    if (pplayer->x <= 0) {
-        pplayer->x++;
+    if (pplayer->x > 0&& IsKeyDown(KEY_LEFT)) {
+        pplayer->x-=pplayer->speed;
     }
-    if (pplayer->x >= 384 - 32) {
-        pplayer->x--;
+    if(pplayer->x < 384 - 32&& IsKeyDown(KEY_RIGHT)){
+        pplayer->x+=pplayer->speed;
     }
-    if (pplayer->y <= 0) {
-        pplayer->y++;
+    if(pplayer->y>0&& IsKeyDown(KEY_UP)){
+        pplayer->y-=pplayer->speed;
     }
-    if (pplayer->y >= 480 - 48) {
-        pplayer->y--;
+    if(pplayer->y<480-48&& IsKeyDown(KEY_DOWN)){
+        pplayer->y+=pplayer->speed;
     }
-    if (!(pplayer->x < 0 || pplayer->x > 384 - 32)) {
-        if (IsKeyDown(KEY_LEFT)) {
-            pplayer->x -= pplayer->speed;
-            return;
-        }
-        if (IsKeyDown(KEY_RIGHT)) {
-            pplayer->x += pplayer->speed;
-            return;
-        }
+}
+
+static void updatep(Player *pplayer){
+    if(scoreIn->power<16){
+        pplayer->power = 0;
     }
-    if (!(pplayer->y < 0 || pplayer->y > 480 - 48)) {
-        if (IsKeyDown(KEY_UP)) {
-            pplayer->y -= pplayer->speed;
-            return;
-        }
-        if (IsKeyDown(KEY_DOWN)) {
-            pplayer->y += pplayer->speed;
-            return;
-        }
+    if(scoreIn->power>=16){
+        pplayer->power = 1;
+    }
+    if(scoreIn->power>=64){
+        pplayer->power = 2;
+    }
+    if(scoreIn->power>=96){
+        pplayer->power = 3;
     }
 }
 
 void pltick(Player *pplayer) {
+    updatep(pplayer);
     render(pplayer);
     ctrl(pplayer);
     anm(pplayer);

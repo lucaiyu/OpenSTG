@@ -19,7 +19,7 @@ extern Image BULLET[2];
 extern Music bgms[17];
 extern unsigned long timer;//GLOBAL TIMER(TPS)
 extern score *scoreIn;
-extern Image ui[2];
+extern Texture2D ui[2];
 
 
 #include "ui.h"//header inc

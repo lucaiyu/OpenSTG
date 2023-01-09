@@ -14,6 +14,7 @@ typedef struct
     unsigned char power;
     _Bool temp;
     _Bool slowmode;
+    _Bool touchframe;
     short speed;
     short movement;
     Texture2D tex;

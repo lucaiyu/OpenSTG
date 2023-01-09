@@ -70,17 +70,15 @@ void delete(bullet *pb){
 void StartStage() {
     while (!WindowShouldClose()) {
         UpdateMusicStream(bgms[5]);
-        scoreIn->graze+=10;
-        scoreIn->point+=10;
+        timer++;
         if(timer%5==0){
             scoreIn->power++;
         }
-        timer++;
         BeginDrawing();
+        ClearBackground((Color){25, 25, 36});
         loopbu();
         pltick(pplayer);
         renderUI();
-        ClearBackground((Color){25, 25, 36});
         EndDrawing();
     }
 }
