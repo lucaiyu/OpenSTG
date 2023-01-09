@@ -8,7 +8,7 @@ score *scoreIn;
 
 void initScore(score *scoreIn){
     scoreIn->score = 0;
-    scoreIn->power = 0;
+    scoreIn->power = 128;
     scoreIn->bomb = 3;
     scoreIn->graze = 0;
     scoreIn->hiscore = 0;

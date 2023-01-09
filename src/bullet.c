@@ -25,7 +25,7 @@ static void delta(bullet *pb){
 }
 static void render(bullet *pb){
     DrawTexturePro(pb->tex, pb->src,(Rectangle){pb->x, pb->y, pb->src.width, pb->src.height} ,(Vector2){0, pb->src.height},
-                   pb->rotate, GRAY);
+                   pb->rotate, WHITE);
 }
 static void check(bullet *pb){
     if(pb->x<0+16||pb->x>433||pb->y<0+75||pb->y>480-8){

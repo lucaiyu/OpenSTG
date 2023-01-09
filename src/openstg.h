@@ -9,6 +9,7 @@
 
 
 #include "ui.h"//header inc
+#include "point.h"
 #include "bullet.h"
 #include "player.h"
 #include "resman.h"
@@ -31,6 +32,7 @@ extern Texture2D bak[1];
 
 
 #include "ui.h"//header inc
+#include "point.h"
 #include "bullet.h"
 #include "player.h"
 #include "resman.h"
