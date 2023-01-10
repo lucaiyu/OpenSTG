@@ -35,7 +35,7 @@ static void check(bullet *pb){
         pb->dy = 0;
         pb->d2x = 0;
         pb->d2y = 0;
-        delete(pb);
+        deletebu(pb);
     }
 }
 void butick(bullet *pb){

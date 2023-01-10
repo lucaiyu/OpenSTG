@@ -3,6 +3,7 @@
 #include <raylib.h>//master header
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include <time.h>
 
@@ -10,7 +11,9 @@
 
 #include "ui.h"//header inc
 #include "point.h"
+#include "pointhandle.h"
 #include "bullet.h"
+#include "bullethandle.h"
 #include "player.h"
 #include "resman.h"
 #include "stage.h"
@@ -31,17 +34,8 @@ extern score *scoreIn;
 extern Texture2D ui[2];
 extern Texture2D bak[1];
 extern Player *pplayer;
-
-
-#include "ui.h"//header inc
-#include "stage.h"
-#include "point.h"
-#include "bullet.h"
-#include "player.h"
-#include "resman.h"
-#include "logger.h"
-#include "util.h"
-
+extern bulletNode *buhead;
+extern pointNode * phead;
 
 
 #endif

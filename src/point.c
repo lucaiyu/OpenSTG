@@ -15,7 +15,7 @@ point * initPoint(short x, short y, unsigned char type, Image *tex, Rectangle sr
 static void move(point *pp){
     pp->y+=pp->dy;
     if(pp->dy<5){
-        pp->dy = pp->dy;
+        pp->dy = pp->dy+0.1;
     }
 }
 
@@ -25,7 +25,7 @@ static void render(point *pp){
 
 static void check(point *pp){
     if(pp->x<0+16||pp->x>433||pp->y<-32||pp->y>480-8) {
-        pp->trash = true;
+        deletep(pp);
     }
     if(collision((Rectangle){pp->x, pp->y, pp->src.width, pp->src.height}, (Rectangle){pplayer->x, pplayer->y, 32, 48})){
         switch (pp->type) {

@@ -4,8 +4,6 @@
 
 void InitStage();
 void StartStage();
-void addBullet(bullet *pb);
-void delete(bullet *pb);
 
 typedef struct{
     unsigned long hiscore;
@@ -16,9 +14,4 @@ typedef struct{
     unsigned short point;
     unsigned short graze;
 }score;
-
-typedef struct node{
-    bullet *current;
-    struct node *next;
-}bulletNode;
 #endif
