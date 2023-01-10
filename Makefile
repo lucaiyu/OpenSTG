@@ -4,32 +4,38 @@
 all: openstg
 	-./openstg
 
-openstg: build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/ui.o
-	gcc build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/ui.o -o openstg -g -lraylib -lm -lGL -lpthread -ldl -lrt -lX11
+openstg: build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/ui.o build/point.o build/util.o
+	gcc build/main.o build/player.o build/resman.o build/stage.o build/bullet.o build/logger.o build/ui.o build/point.o build/util.o -o openstg -g -lraylib -lm -lGL -lpthread -ldl -lrt -lX11
 
 build/main.o: src/main.c
-	gcc src/main.c -c -o build/main.o
+	cc src/main.c -c -o build/main.o
 
 build/player.o: src/player.c
-	gcc src/player.c -c -o build/player.o
+	cc src/player.c -c -o build/player.o
 
 build/resman.o: src/resman.c
-	gcc src/resman.c -c -o build/resman.o
+	cc src/resman.c -c -o build/resman.o
 
 build/stage.o: src/stage.c
-	gcc src/stage.c -c -o build/stage.o
+	cc src/stage.c -c -o build/stage.o
 
 build/bullet.o: src/bullet.c
-	gcc src/bullet.c -c -o build/bullet.o
+	cc src/bullet.c -c -o build/bullet.o
 
 build/logger.o: src/logger.c
-	gcc src/logger.c -c -o build/logger.o
+	cc src/logger.c -c -o build/logger.o
 
 build/enemy.o: src/enemy.c
-	gcc src/enemy.c -c -o build/enemy.o
+	cc src/enemy.c -c -o build/enemy.o
 
 build/ui.o: src/ui.c
-	gcc src/ui.c -c -o build/ui.o
+	cc src/ui.c -c -o build/ui.o
+
+build/point.o: src/point.c
+	cc src/point.c -c -o build/point.o
+
+build/util.o: src/util.c
+	cc src/util.c -c -o build/util.o
 
 .PHONY:clean
 clean:

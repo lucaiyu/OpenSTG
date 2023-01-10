@@ -15,6 +15,7 @@
 #include "resman.h"
 #include "stage.h"
 #include "logger.h"
+#include "util.h"
 
 
 typedef unsigned char BYTE;//typedef
@@ -29,15 +30,17 @@ extern unsigned long timer;//GLOBAL TIMER(TPS)
 extern score *scoreIn;
 extern Texture2D ui[2];
 extern Texture2D bak[1];
+extern Player *pplayer;
 
 
 #include "ui.h"//header inc
+#include "stage.h"
 #include "point.h"
 #include "bullet.h"
 #include "player.h"
 #include "resman.h"
-#include "stage.h"
 #include "logger.h"
+#include "util.h"
 
 
 

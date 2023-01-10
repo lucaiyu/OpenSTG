@@ -1,20 +1,22 @@
 #include "openstg.h"
 
-point * initPoint(short x, short y, unsigned char type, unsigned char value, Image *tex, Rectangle src){
+point * initPoint(short x, short y, unsigned char type, Image *tex, Rectangle src){
     point *pp = (point *) malloc(sizeof(point));
     pp->x = x;
     pp->y = y;
     pp->dy = 0;
     pp->type = type;
-    pp->value = value;
     pp->src = src;
+    pp->trash = false;
     pp->tex = LoadTextureFromImage(*tex);
     return pp;
 }
 
 static void move(point *pp){
     pp->y+=pp->dy;
-    pp->dy = (unsigned char)pp->dy+0.1;
+    if(pp->dy<5){
+        pp->dy = pp->dy;
+    }
 }
 
 static void render(point *pp){
@@ -22,14 +24,48 @@ static void render(point *pp){
 }
 
 static void check(point *pp){
-    if(pp->x<0+16||pp->x>433||pp->y<0+75||pp->y>480-8) {
-        pp->x = 1000;
-        pp->y = 1000;
-        pp->dy = 0;
+    if(pp->x<0+16||pp->x>433||pp->y<-32||pp->y>480-8) {
+        pp->trash = true;
+    }
+    if(collision((Rectangle){pp->x, pp->y, pp->src.width, pp->src.height}, (Rectangle){pplayer->x, pplayer->y, 32, 48})){
+        switch (pp->type) {
+            case 1:{
+                scoreIn->power+=1;
+                pp->trash = true;
+                break;
+            }
+            case 2:{
+                scoreIn->point++;
+                pp->trash = true;
+                break;
+            }
+            case 3:{
+                scoreIn->power+=8;
+                pp->trash = true;
+                break;
+            }
+            case 4:{
+                scoreIn->bomb++;
+                pp->trash = true;
+                break;
+            }
+            case 5:{
+                scoreIn->power=128;
+                pp->trash = true;
+                break;
+            }
+            case 6:{
+                scoreIn->live++;
+                pp->trash = true;
+                break;
+            }
+        }
     }
 }
-void tick(point *pp){
-    check(pp;)
-    move(pp);
-    render(pp);
+void ptick(point *pp){
+    if(!pp->trash){
+        check(pp);
+        render(pp);
+        move(pp);
+    }
 }

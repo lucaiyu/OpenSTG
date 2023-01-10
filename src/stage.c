@@ -1,5 +1,7 @@
 #include "openstg.h"
 
+#define DEBUG
+
 
 Player *pplayer;
 bulletNode *head;
@@ -8,11 +10,12 @@ score *scoreIn;
 
 void initScore(score *scoreIn){
     scoreIn->score = 0;
-    scoreIn->power = 128;
+    scoreIn->power = 0;
     scoreIn->bomb = 3;
     scoreIn->graze = 0;
     scoreIn->hiscore = 0;
     scoreIn->live = 2;
+    scoreIn->point = 0;
 }
 
 void addBullet(bullet *pb) {
@@ -73,6 +76,12 @@ void delete(bullet *pb){
 }
 
 void StartStage() {
+    point *pp1 = initPoint(100, 30, POWER, &BULLET[0], (Rectangle){2, 2, 12, 12});
+    point *pp2 = initPoint(120, 30, SCORE, &BULLET[0], (Rectangle){18, 2, 12, 12});
+    point *pp3 = initPoint(140, 30, BPOWER, &BULLET[0], (Rectangle){32, 0, 16, 16});
+    point *pp4 = initPoint(160, 30, SC, &BULLET[0], (Rectangle){48, 0, 16, 16});
+    point *pp5 = initPoint(180, 30, FPOWER, &BULLET[0], (Rectangle){64, 0, 16, 16});
+    point *pp6 = initPoint(200, 30, ONEUP, &BULLET[0], (Rectangle){80, 0, 16, 16});
     while (!WindowShouldClose()) {
         UpdateMusicStream(bgms[5]);
         timer++;
@@ -81,6 +90,12 @@ void StartStage() {
         renderUI();
         renderbak();
         loopbu();
+        ptick(pp1);
+        ptick(pp2);
+        ptick(pp3);
+        ptick(pp4);
+        ptick(pp5);
+        ptick(pp6);
         pltick(pplayer);
         EndDrawing();
     }
