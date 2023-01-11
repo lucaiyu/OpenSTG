@@ -8,8 +8,6 @@ score *scoreIn;
 void initScore(score *scoreIn){
     scoreIn->score = 0;
     scoreIn->power = 0;
-    scoreIn->bomb = 3;
-    scoreIn->graze = 0;
     scoreIn->hiscore = 0;
     scoreIn->live = 2;
     scoreIn->point = 0;
@@ -31,28 +29,27 @@ void InitStage() {
 
 
 static void renderbak(){
-    for(int i = 0; i < 25; i++){
-        for(int j = 0; j < 29; j++){
-            DrawTextureRec(bak[0], (Rectangle){0, 0, 16, 16}, (Vector2){16+i*16, 8+j*16}, GRAY);
-        }
-    }
+    DrawTexture(bak[0], 32, 16, GRAY);
+    DrawTexture(bak[0], 32+256, 16, GRAY);
+    DrawTexture(bak[0], 32, 16+256, GRAY);
+    DrawTexture(bak[0], 32+256, 16+256, GRAY);
 }
 
 
 
 void StartStage() {
     while (!WindowShouldClose()) {
-        if(timer%60 == 0){
-            addPoint(initPoint(120, 120, 1, &BULLET[0], (Rectangle){2, 2, 12, 12}));
+        if(timer%60==0){
+            addPoint(initPoint(240, 50, BPOWER, &BULLET[1], (Rectangle){48, 208, 16, 16}));
         }
         UpdateMusicStream(bgms[5]);
         timer++;
         BeginDrawing();
         ClearBackground(BLACK);
-        renderUI();
         renderbak();
         loopbu();
         loopp();
+        renderUI();
         pltick(pplayer);
         EndDrawing();
     }

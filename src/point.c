@@ -40,21 +40,16 @@ static void check(point *pp){
                 break;
             }
             case 3:{
-                scoreIn->power+=8;
+                scoreIn->power+=100;
                 pp->trash = true;
                 break;
             }
             case 4:{
-                scoreIn->bomb++;
-                pp->trash = true;
-                break;
-            }
-            case 5:{
                 scoreIn->power=128;
                 pp->trash = true;
                 break;
             }
-            case 6:{
+            case 5:{
                 scoreIn->live++;
                 pp->trash = true;
                 break;

@@ -154,8 +154,8 @@ static void shoot(Player *pplayer) {
     }
 }
 static void spellcard(Player *pplayer){
-    if(scoreIn->bomb>0){
-        scoreIn->bomb--;
+    if(scoreIn->power>99){
+        scoreIn->power-=100;
         // TODO
         //launch spellcard
     }
@@ -187,16 +187,16 @@ static void ctrl(Player *pplayer) {
     if (IsKeyDown(KEY_Z)) {
         shoot(pplayer);
     }
-    if (pplayer->x > 0+16&& IsKeyDown(KEY_LEFT)) {
+    if (pplayer->x > 32&& IsKeyDown(KEY_LEFT)) {
         pplayer->x-=pplayer->speed;
     }
-    if(pplayer->x < 384 - 32&& IsKeyDown(KEY_RIGHT)){
+    if(pplayer->x < 384&& IsKeyDown(KEY_RIGHT)){
         pplayer->x+=pplayer->speed;
     }
-    if(pplayer->y>0+8&& IsKeyDown(KEY_UP)){
+    if(pplayer->y>16&& IsKeyDown(KEY_UP)){
         pplayer->y-=pplayer->speed;
     }
-    if(pplayer->y<480-48-8&& IsKeyDown(KEY_DOWN)){
+    if(pplayer->y<480-16-48&& IsKeyDown(KEY_DOWN)){
         pplayer->y+=pplayer->speed;
     }
 }

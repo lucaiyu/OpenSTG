@@ -27,8 +27,8 @@ typedef unsigned int DWORD;
 
 extern Image PL00;//global var def
 extern Image PL01;
-extern Image BULLET[2];
-extern Music bgms[17];
+extern Image BULLET[4];
+extern Music bgms[18];
 extern unsigned long timer;//GLOBAL TIMER(TPS)
 extern score *scoreIn;
 extern Texture2D ui[2];

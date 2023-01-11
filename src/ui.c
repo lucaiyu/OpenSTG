@@ -4,86 +4,43 @@ void rendernum(int num, Vector2 dst){
     if(num < 0 || num > 9){
         return;
     }
-    DrawTextureRec(ui[1], (Rectangle){num*16, 48, 16, 16}, dst, WHITE);
+    DrawTextureRec(ui[0], (Rectangle){338+num*16, 0, 16, 20}, dst, WHITE);
+}
+
+void rendersnum(int num, Vector2 dst){
+    if(num < 0 || num > 9){
+        return;
+    }
+    DrawTextureRec(ui[0], (Rectangle){272+num*8, 80, 8, 9}, dst, WHITE);
 }
 
 static void renderKey(){
-    DrawTextureRec(ui[0], (Rectangle){0, 191, 60, 17}, (Vector2){433, 61}, WHITE);
-    DrawTextureRec(ui[0], (Rectangle){0, 206, 30, 20}, (Vector2){433, 85}, WHITE);
-    DrawTextureRec(ui[0], (Rectangle){0, 176, 47, 16}, (Vector2){433, 122}, WHITE);
-    DrawTextureRec(ui[0], (Rectangle){0, 160, 43, 16}, (Vector2){433, 146}, WHITE);
-    DrawTextureRec(ui[0], (Rectangle){34, 210, 46, 13}, (Vector2){433, 187}, WHITE);
-    DrawTextureRec(ui[0], (Rectangle){34, 225, 41, 14}, (Vector2){433, 206}, WHITE);
-    DrawTextureRec(ui[0], (Rectangle){49, 160, 15, 15}, (Vector2){433, 227}, WHITE);
+    DrawTextureRec(ui[0], (Rectangle){256, 0, 64, 21}, (Vector2){432, 49}, WHITE);
+    DrawTextureRec(ui[0], (Rectangle){271, 21, 49, 19}, (Vector2){448, 75}, WHITE);
+    DrawTextureRec(ui[0], (Rectangle){266, 41, 54, 20}, (Vector2){444, 106}, WHITE);
+    DrawTextureRec(ui[0], (Rectangle){266, 62, 54, 18}, (Vector2){444, 129}, WHITE);
     for(int i = 0; i < scoreIn->live; i++){
-        DrawTextureRec(ui[0], (Rectangle){32, 241, 15, 15}, (Vector2){497+17*i, 123}, WHITE);
-    }
-    for(int i = 0; i < scoreIn->bomb; i++){
-        DrawTextureRec(ui[0], (Rectangle){48, 241, 15, 15}, (Vector2){497+17*i, 147}, WHITE);
+        DrawTextureRec(ui[0], (Rectangle){496, 2, 16, 16}, (Vector2){515+12*i, 108}, WHITE);
     }
 }
 
 static void renderPower(){
-    BYTE bits=4;
-    if(scoreIn->power<128){
-        while (true){
-            int tmp = (int)(scoreIn->power/ pow(10, bits))%10;
-            if(tmp == 0){
-                break;
-            }
-            bits++;
-        }
-        for (int i = 0; i < bits; i++){
-            int tmp = (int)(scoreIn->power/ pow(10, i))%10;
-            rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 187});
-        }
-    } else{
-        DrawTextureRec(ui[0], (Rectangle){65, 244, 41, 12}, (Vector2){499, 189}, WHITE);
-        scoreIn->power = 128;
+    if(scoreIn->power>500){
+        scoreIn->power = 500;
     }
-}
-
-static void renderGraze(){
-    if(scoreIn->graze>9999){
-        scoreIn->graze = 9999;
-    }
-    BYTE bits =4;
-    while (true){
-        int tmp = (int)(scoreIn->graze/ pow(10, bits))%10;
-        if(tmp == 0){
-            break;
-        }
-        bits++;
-    }
-    for (int i = 0; i < bits; i++){
-        int tmp = (int)(scoreIn->graze/ pow(10, i))%10;
-        rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 206});
-    }
-}
-
-static void renderPoint(){
-    if(scoreIn->point>9999){
-        scoreIn->point = 9999;
-    }
-    BYTE bits = 4;
-    while (true){
-        int tmp = (int)(scoreIn->point/ pow(10, bits))%10;
-        if(tmp == 0){
-            break;
-        }
-        bits++;
-    }
-    for (int i = 0; i < bits; i++){
-        int tmp = (int)(scoreIn->point/ pow(10, i))%10;
-        rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 227});
-    }
+    unsigned char master = ((int)scoreIn->power/100)%10;
+    unsigned char slave1 = ((int)scoreIn->power/10)%10;
+    unsigned char slave2 = scoreIn->power%10;
+    rendernum(master, (Vector2){516, 130});
+    DrawTextureRec(ui[0], (Rectangle){339, 33, 6, 6}, (Vector2){530, 142}, WHITE);
+    rendersnum(slave1, (Vector2){537, 139});
+    rendersnum(slave2, (Vector2){545, 139});
 }
 static void rendercur(){
-    for(int i = 0; i < 4; i++){
-        for(int j = 0; j < 30; j++){
-            DrawTextureRec(ui[0], (Rectangle){96, 80, 160 ,16}, (Vector2){160*i, 16*j}, GRAY);
-        }
-    }
+    DrawTextureRec(ui[0], (Rectangle){32, 0, 224, 480}, (Vector2){640-224, 0}, WHITE);
+    DrawTextureRec(ui[0], (Rectangle){0, 0, 32, 513}, (Vector2){0, 0}, WHITE);
+    DrawTextureRec(ui[0], (Rectangle){32, 480, 352, 16}, (Vector2){64, 0}, WHITE);
+    DrawTextureRec(ui[0], (Rectangle){32, 496, 352, 16}, (Vector2){64, 480-16}, WHITE);
 }
 
 static void renderhiscore(){
@@ -100,7 +57,7 @@ static void renderhiscore(){
     }
     for (int i = 0; i < bits; i++){
         int tmp = (int)(scoreIn->hiscore/ pow(10, i))%10;
-        rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 61});
+        rendernum(tmp, (Vector2){516+(bits-1)*12-i*12, 49});
     }
 }
 
@@ -118,7 +75,7 @@ static void renderscore(){
     }
     for (int i = 0; i < bits; i++){
         int tmp = (int)(scoreIn->score/ pow(10, i))%10;
-        rendernum(tmp, (Vector2){497+(bits-1)*15-i*15, 85});
+        rendernum(tmp, (Vector2){516+(bits-1)*12-i*12, 75});
     }
 }
 void renderUI(){
@@ -126,7 +83,5 @@ void renderUI(){
     renderKey();
     renderhiscore();
     renderscore();
-    renderGraze();
     renderPower();
-    renderPoint();
 }

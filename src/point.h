@@ -12,7 +12,7 @@ typedef struct {
     _Bool trash;
 }point;
 enum TYPE{
-    POWER=1, SCORE, BPOWER, SC, FPOWER, ONEUP,
+    POWER=1, SCORE, BPOWER, FPOWER, ONEUP,
 }type;
 
 point * initPoint(short x, short y, unsigned char type, Image *tex, Rectangle src);

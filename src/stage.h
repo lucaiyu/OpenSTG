@@ -8,10 +8,8 @@ void StartStage();
 typedef struct{
     unsigned long hiscore;
     unsigned long score;
-    unsigned char power;
+    unsigned short power;
     unsigned char live;
-    unsigned char bomb;
     unsigned short point;
-    unsigned short graze;
 }score;
 #endif
