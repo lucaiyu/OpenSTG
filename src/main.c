@@ -8,7 +8,6 @@ int main(){
     InitAudioDevice();
 	InitWindow(640,480,"STG");
 	SetTargetFPS(60);
-    InitStage();
     StartStage();
 	CloseWindow();
     CloseAudioDevice();

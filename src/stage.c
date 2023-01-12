@@ -1,11 +1,11 @@
 #include "openstg.h"
 
 
-Player *pplayer;
-unsigned long timer;
+
 score *scoreIn;
 
-void initScore(score *scoreIn){
+void initScore(score *scoreIn){  //GAME SETTINGS
+    scoreIn->difficultly = EASY;
     scoreIn->score = 0;
     scoreIn->power = 0;
     scoreIn->hiscore = 0;
@@ -15,42 +15,11 @@ void initScore(score *scoreIn){
 
 
 
-void InitStage() {
-    logStr("Initializing stage\n", INFO);
-    timer = 0;
+void StartStage() {
+    logStr("Initializing stages\n", INFO);
     ldtex();
-    pplayer = InitPlayer(320, 240, &PL00);
-    buhead = NULL;
-    phead = NULL;
     scoreIn = (score*) malloc(sizeof(scoreIn));
     initScore(scoreIn);
-    PlayMusicStream(bgms[5]);
-}
-
-
-static void renderbak(){
-    DrawTexture(bak[0], 32, 16, GRAY);
-    DrawTexture(bak[0], 32+256, 16, GRAY);
-    DrawTexture(bak[0], 32, 16+256, GRAY);
-    DrawTexture(bak[0], 32+256, 16+256, GRAY);
-}
-
-
-
-void StartStage() {
-    while (!WindowShouldClose()) {
-        if(timer%60==0){
-            addPoint(initPoint(240, 50, BPOWER, &BULLET[1], (Rectangle){48, 208, 16, 16}));
-        }
-        UpdateMusicStream(bgms[5]);
-        timer++;
-        BeginDrawing();
-        ClearBackground(BLACK);
-        renderbak();
-        loopbu();
-        loopp();
-        renderUI();
-        pltick(pplayer);
-        EndDrawing();
-    }
+    InitStage01();
+    startStage01();
 }

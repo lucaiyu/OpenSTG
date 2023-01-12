@@ -1,13 +1,13 @@
 #include "openstg.h"
 
-void rendernum(int num, Vector2 dst){
+static void rendernum(int num, Vector2 dst){
     if(num < 0 || num > 9){
         return;
     }
     DrawTextureRec(ui[0], (Rectangle){338+num*16, 0, 16, 20}, dst, WHITE);
 }
 
-void rendersnum(int num, Vector2 dst){
+static void rendersnum(int num, Vector2 dst){
     if(num < 0 || num > 9){
         return;
     }
@@ -25,8 +25,10 @@ static void renderKey(){
 }
 
 static void renderPower(){
-    if(scoreIn->power>500){
+    if(scoreIn->power>=500){
         scoreIn->power = 500;
+        DrawTextureRec(ui[0], (Rectangle){352, 22, 41, 18}, (Vector2){516, 130}, WHITE);
+        return;
     }
     unsigned char master = ((int)scoreIn->power/100)%10;
     unsigned char slave1 = ((int)scoreIn->power/10)%10;
@@ -78,9 +80,35 @@ static void renderscore(){
         rendernum(tmp, (Vector2){516+(bits-1)*12-i*12, 75});
     }
 }
+
+static void renderdiff(){
+    switch (scoreIn->difficultly) {
+        case 1:{
+            DrawTextureRec(ui[0], (Rectangle){277, 304, 37, 15}, (Vector2){499, 27}, WHITE);
+            return;
+        }
+        case 2:{
+            DrawTextureRec(ui[0], (Rectangle){264, 320, 65, 15}, (Vector2){499, 27}, WHITE);
+            return;
+        }
+        case 3:{
+            DrawTextureRec(ui[0], (Rectangle){275, 336, 44, 16}, (Vector2){499, 27}, WHITE);
+            return;
+        }
+        case 4:{
+            DrawTextureRec(ui[0], (Rectangle){265, 352, 63, 15}, (Vector2){499, 27}, WHITE);
+            return;
+        }
+        case 5:{
+            DrawTextureRec(ui[0], (Rectangle){274, 368, 49, 16}, (Vector2){499, 27}, WHITE);
+            return;
+        }
+    }
+}
 void renderUI(){
     rendercur();
     renderKey();
+    renderdiff();
     renderhiscore();
     renderscore();
     renderPower();

@@ -5,6 +5,7 @@ Image PL01;
 Image BULLET[4];
 Texture2D ui[2];
 Texture2D bak[1];
+Texture2D title[1];
 Music bgms[18];
 
 
@@ -20,6 +21,7 @@ void ldtex(){
     ui[0] = LoadTexture("assets/front/front00.png");
     ui[1] = LoadTexture("assets/ascii/ascii.png");
     bak[0] = LoadTexture("assets/background/stg1bg.png");
+    title[0] = LoadTexture("assets/front/st01logo.png");
     bgms[0] = LoadMusicStream("assets/BGM/th10_1.mp3");
     bgms[1] = LoadMusicStream("assets/BGM/th10_2.mp3");
     bgms[2] = LoadMusicStream("assets/BGM/th10_3.mp3");
