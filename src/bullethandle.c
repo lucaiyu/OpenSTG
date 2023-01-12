@@ -20,6 +20,7 @@ void addBullet(bullet *pb) {
 }
 
 void deletebu(bullet *pb){
+    /*
     if(pb == NULL){
         return;
     }
@@ -31,6 +32,8 @@ void deletebu(bullet *pb){
         }
         cur=cur->next;
     }
+     */
+    return;
 }
 
 void loopbu() {

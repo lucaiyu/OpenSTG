@@ -37,6 +37,9 @@ static void check(bullet *pb){
         pb->d2y = 0;
         deletebu(pb);
     }
+    if(collision((Rectangle){pb->x, pb->y, pb->src.width, pb->src.height}, (Rectangle){pplayer->x+11, pplayer->y+23, 2, 2})){
+        scoreIn->live--;
+    }
 }
 void butick(bullet *pb){
     check(pb);

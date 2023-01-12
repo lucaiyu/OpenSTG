@@ -3,6 +3,7 @@
 unsigned long long eflags;
 Player *pplayer;
 unsigned long timer;
+enemy *pe;
 
 static void renderbak(){
     DrawTexture(bak[0], 32, 16, GRAY);
@@ -18,6 +19,9 @@ void InitStage01() {
     timer = 0;
     eflags = 0x00000000;
     pplayer = InitPlayer(320, 240, &PL00);
+    unsigned char tmp;
+    void(*p[5])() = {NULL, NULL, NULL, NULL, NULL};
+    pe = initenemy(120, 120, 1, 0, 0, &tmp, p);
     buhead = NULL;
     phead = NULL;
     PlayMusicStream(bgms[13]);
@@ -61,6 +65,7 @@ static void loopdraw(){
     loopbu();
     loopp();
     pltick(pplayer);
+    tickene(pe);
     renderUI();
     drawTitle();
 }

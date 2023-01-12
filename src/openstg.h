@@ -36,6 +36,7 @@ extern score *scoreIn;
 extern Texture2D ui[2];
 extern Texture2D bak[1];
 extern Texture2D title[1];
+extern Texture2D ENEMY;
 extern unsigned long timer;
 extern Player *pplayer;
 extern bulletNode *buhead;
